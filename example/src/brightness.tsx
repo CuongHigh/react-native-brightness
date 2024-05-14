@@ -1,16 +1,16 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useAppBrightness } from 'react-native-brightness';
+import { setAppBrightness, useBrightness } from 'react-native-brightness';
 
 export default function BrightnessComponent() {
-  const { appBrightness, increaseAppBrightness } = useAppBrightness();
+  const { appBrightness } = useBrightness();
 
   async function increase() {
-    increaseAppBrightness(0.05);
+    setAppBrightness(appBrightness + 0.05);
   }
 
   async function decrease() {
-    increaseAppBrightness(-0.05);
+    setAppBrightness(appBrightness - 0.05);
   }
 
   return (

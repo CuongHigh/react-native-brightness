@@ -7,7 +7,7 @@
 RCT_EXPORT_MODULE(RTNBrightness)
 
 
-RCT_EXPORT_METHOD(resetBrightness){}
+RCT_EXPORT_METHOD(syncWithSysBrightness){}
 
 RCT_EXPORT_METHOD(getSysBrightness:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject){
