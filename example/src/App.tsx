@@ -1,18 +1,25 @@
 import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-brightness';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import BrightnessComponent from './brightness';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const [visible, setVisible] = React.useState(false);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <View>{visible && <BrightnessComponent />}</View>
+      <TouchableOpacity
+        onPress={() => {
+          setVisible((prv) => !prv);
+        }}
+        style={{
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          backgroundColor: 'red',
+        }}
+      >
+        <Text style={{ fontSize: 30 }}>{visible ? 'hide' : 'show'}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -22,10 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+    rowGap: 30,
+    backgroundColor: '#fff',
   },
 });
