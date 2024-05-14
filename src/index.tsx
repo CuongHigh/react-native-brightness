@@ -23,8 +23,8 @@ export const BrightnessLevel = Object.freeze({
   max: 1,
 });
 
-export function resetBrightness() {
-  return RTNBrightness.resetBrightness();
+export function syncWithSysBrightness() {
+  return RTNBrightness.syncWithSysBrightness();
 }
 
 export function getSysBrightness(): Promise<number> {
@@ -66,7 +66,7 @@ export function useBrightness() {
     );
 
     return () => {
-      RTNBrightness.resetBrightness();
+      RTNBrightness.syncWithSysBrightness();
       eventListener.remove();
     };
   }, []);

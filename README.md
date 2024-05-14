@@ -1,26 +1,70 @@
 # react-native-brightness
 
-descc
+Screen brightness adjustment tool for ReactNative iOS and Android.
 
 ## Installation
 
 ```sh
-npm install react-native-brightness
+npm install git+https://github.com/CuongHigh/react-native-brightness.git
 ```
+
+or
+
+```sh
+yarn add git+https://github.com/CuongHigh/react-native-brightness.git
+```
+
+If using iOS please remember to install cocoapods by running: npx pod-install
 
 ## Usage
 
 ```js
-import { multiply } from 'react-native-brightness';
+import {
+  useBrightness,
+  setAppBrightness,
+  syncWithSysBrightness,
+} from 'react-native-brightness';
 
 // ...
 
-const result = await multiply(3, 7);
+const { appBrightness, sysBrightness } = useBrightness();
+
+useEffect(() => {
+  setAppBrightness(0.5);
+
+  return () => {
+    syncWithSysBrightness();
+  };
+}, []);
 ```
 
-## Contributing
+### Android:
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+- `getAppBrightness`: Get current brightness of your app
+
+- `getSysBrightness`: Get current brightness of your phone
+
+- `setAppBrightness`: set brightness your app from 0.0(min) to 1.0(max)
+
+- `syncWithSysBrightness`: set app-brightness same with phone-brightness
+
+- `useBrightness`:
+    + appBrightness is current app-brightness
+    + sysBrightness is current phone-brightness, sysBrightness always sync with phone brightness setting
+
+### Ios: only have phone-brightness
+
+- `getAppBrightness`: Get current brightness of your phone
+
+- `getSysBrightness`: Get current brightness of your phone
+
+- `setAppBrightness`: set brightness your phone from 0.0(min) to 1.0(max)
+
+- `syncWithSysBrightness`: no support, because ios only have phone-brightness
+
+- `useBrightness`:
+    + appBrightness is current phone-brightness
+    + sysBrightness is current phone-brightness, sysBrightness always sync with phone brightness setting
 
 ## License
 

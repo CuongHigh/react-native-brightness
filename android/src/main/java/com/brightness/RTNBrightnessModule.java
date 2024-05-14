@@ -35,7 +35,7 @@ public class RTNBrightnessModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void resetBrightness() {
+  public void syncWithSysBrightness() {
     getCurrentActivity().runOnUiThread(() -> {
       var window = getCurrentActivity().getWindow();
       WindowManager.LayoutParams layoutParams = window.getAttributes();
