@@ -57,10 +57,7 @@ export function useBrightness() {
       'Sys_Brightness_Change',
       (event) => {
         setSysBrightness(event.brightness);
-
-        if (Platform.OS === 'ios') {
-          setAppBrightness(event.brightness);
-        }
+        setAppBrightness(event.brightness);
 
         if (Platform.OS === 'android') {
           RTNBrightness.setAppBrightness(event.brightness);
