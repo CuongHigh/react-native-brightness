@@ -1,7 +1,7 @@
 {
   "name": "react-native-brightness",
   "version": "0.1.0",
-  "description": "descc",
+  "description": "change brightness programmatically for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -41,14 +41,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CuongShake/react-native-brightness.git"
+    "url": "git+https://github.com/CuongHigh/react-native-brightness.git"
   },
-  "author": "CuongShake <cuongshake134@gmail.com> (https://github.com/CuongShake)",
+  "author": "CuongHigh <phamk134cuong@gmail.com> (https://github.com/CuongHigh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CuongShake/react-native-brightness/issues"
+    "url": "https://github.com/CuongHigh/react-native-brightness/issues"
   },
-  "homepage": "https://github.com/CuongShake/react-native-brightness#readme",
+  "homepage": "https://github.com/CuongHigh/react-native-brightness#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
