@@ -18,11 +18,6 @@ const RTNBrightness = NativeModules.RTNBrightness
       }
     );
 
-function rounded(num: number) {
-  // return Math.ceil(num * 1000) / 1000;
-  return num;
-}
-
 export const BrightnessLevel = Object.freeze({
   min: 0,
   max: 1,
@@ -41,11 +36,18 @@ export function getAppBrightness(): Promise<number> {
 }
 
 export function setAppBrightness(brightness: number): Promise<never> {
-  return RTNBrightness.setAppBrightness(rounded(brightness));
+  const appBrightness =
+    brightness < BrightnessLevel.min
+      ? BrightnessLevel.min
+      : brightness > BrightnessLevel.max
+        ? BrightnessLevel.max
+        : brightness;
+  return RTNBrightness.setAppBrightness(appBrightness);
 }
 
-export function useAppBrightness() {
+export function useBrightness() {
   const [appBrightness, setAppBrightness] = React.useState<number>(-1);
+  const [sysBrightness, setSysBrightness] = React.useState<number>(-1);
 
   React.useEffect(() => {
     init();
@@ -54,7 +56,11 @@ export function useAppBrightness() {
     let eventListener = eventEmitter.addListener(
       'Sys_Brightness_Change',
       (event) => {
-        setAppBrightness(event.brightness);
+        setSysBrightness(event.brightness);
+
+        if (Platform.OS === 'ios') {
+          setAppBrightness(event.brightness);
+        }
 
         if (Platform.OS === 'android') {
           RTNBrightness.setAppBrightness(event.brightness);
@@ -70,22 +76,9 @@ export function useAppBrightness() {
 
   async function init() {
     const sysB = await RTNBrightness.getSysBrightness();
-    setAppBrightness(rounded(sysB));
+    setAppBrightness(sysB);
+    setSysBrightness(sysB);
   }
 
-  function increaseAppBrightness(increase: number) {
-    let brightness = appBrightness + increase;
-
-    if (brightness > BrightnessLevel.max) {
-      brightness = BrightnessLevel.max;
-    }
-    if (brightness < BrightnessLevel.min) {
-      brightness = BrightnessLevel.min;
-    }
-
-    setAppBrightness(brightness);
-    RTNBrightness.setAppBrightness(brightness);
-  }
-
-  return { appBrightness, increaseAppBrightness };
+  return { appBrightness, sysBrightness };
 }
